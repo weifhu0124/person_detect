@@ -29,12 +29,7 @@ def read_data(path, label):
         data.append((np.array(Image.open(im)), label))
     return np.array(data)
 
-# shuffle data such that positive and negative examples are mixed
-def shuffle_data(pos_data, neg_data):
-    data = np.concatenate((pos_data, neg_data))
-    return np.random.shuffle(data)
-
-# test
+# run preprocess once
 if __name__ == '__main__':
     positve_processed = 'data/processed/positive/'
     negative_processed = 'data/processed/negative/'
