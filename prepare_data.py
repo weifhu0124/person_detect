@@ -40,8 +40,5 @@ if __name__ == '__main__':
     negative_processed = 'data/processed/negative/'
     preprocess('data/bikes_and_persons', positve_processed)
     preprocess('data/no_bike_no_person', negative_processed)
-    pos = read_data(positve_processed, 1)
-    neg = read_data(negative_processed, 0)
-    shuffle_date(pos, neg)
 
 
