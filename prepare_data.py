@@ -1,6 +1,23 @@
 import numpy as np
 import glob
+import os
 from PIL import Image
+
+# corp photos into 480x480
+def preprocess(path, save_path):
+    H = 480
+    W = 480
+    images = glob.glob(path + '/*.bmp')
+    # create new processed folder
+    if not os.path.isdir('data/processed/'):
+        os.mkdir('data/processed/')
+    # make a new directory if not exist
+    if not os.path.isdir(save_path):
+        os.mkdir(save_path)
+    for im in images:
+        image = Image.open(im)
+        image = image.resize((W, H), Image.ANTIALIAS)
+        image.save(save_path + os.path.basename(im))
 
 # read in data from folders path
 # label is either 0 or 1
@@ -19,8 +36,12 @@ def shuffle_date(pos_data, neg_data):
 
 # test
 if __name__ == '__main__':
-    pos = read_data('data/bikes_and_persons', 1)
-    neg = read_data('data/no_bike_no_person', 0)
+    positve_processed = 'data/processed/positive/'
+    negative_processed = 'data/processed/negative/'
+    preprocess('data/bikes_and_persons', positve_processed)
+    preprocess('data/no_bike_no_person', negative_processed)
+    pos = read_data(positve_processed, 1)
+    neg = read_data(negative_processed, 0)
     shuffle_date(pos, neg)
 
 
