@@ -30,7 +30,7 @@ def read_data(path, label):
     return np.array(data)
 
 # shuffle data such that positive and negative examples are mixed
-def shuffle_date(pos_data, neg_data):
+def shuffle_data(pos_data, neg_data):
     data = np.concatenate((pos_data, neg_data))
     return np.random.shuffle(data)
 
