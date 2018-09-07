@@ -1,6 +1,13 @@
 import prepare_data as pdata
 import numpy as np
 
+# one-hot encoding for classification error
+def one_hot_encode(label):
+    if label == 0:
+        return [1,0]
+    else:
+        return [0,1]
+
 # load shuffled data and label
 def load_data_label():
     # use prepare_data.py to load data
@@ -16,7 +23,7 @@ def load_data_label():
     label = []
     for data_label in X_data_label:
         data.append(data_label[0])
-        label.append(data_label[1])
+        label.append(one_hot_encode(data_label[1]))
     return np.array(data), np.array(label)
 
 # test
