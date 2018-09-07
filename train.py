@@ -4,10 +4,10 @@ import util
 import numpy as np
 
 # hyperparameters
-learning_rate = 0.001
+learning_rate = 0.0005
 dropouts = 0.4
 batch_size = 50
-num_steps = 200
+num_steps = 500
 
 # generate batch for trainig
 def next_batch(batch_size, data, labels):
