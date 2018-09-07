@@ -11,3 +11,5 @@ inference.py: run inference on data
 
 ## Dataset:
 data are collected from ImageNet Person - Pedestrain category: http://image-net.org/explore.php  
+## Result:
+currently with a learning rate of 5e-4 and 500 steps, the accuracy can acheive 0.854
