@@ -3,10 +3,10 @@ import glob
 import os
 from PIL import Image
 
-# corp photos into 480x480
+# corp photos into 48x48
 def preprocess(path, save_path):
-    H = 480
-    W = 480
+    H = 48
+    W = 48
     images = glob.glob(path + '/*.bmp')
     # create new processed folder
     if not os.path.isdir('data/processed/'):
