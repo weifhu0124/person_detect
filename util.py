@@ -9,10 +9,15 @@ def one_hot_encode(label):
         return [0,1]
 
 # load shuffled data and label
-def load_data_label():
-    # use prepare_data.py to load data
-    positve_processed = 'data/processed/positive/'
-    negative_processed = 'data/processed/negative/'
+def load_data_label(train):
+    # load training data
+    if train == True:
+        # use prepare_data.py to load data
+        positve_processed = 'data/processed/train/positive/'
+        negative_processed = 'data/processed/train/negative/'
+    else: # load validation data
+        positve_processed = 'data/processed/val/positive/'
+        negative_processed = 'data/processed/val/negative'
     pos_data = pdata.read_data(positve_processed, label=1)
     neg_data = pdata.read_data(negative_processed, label=0)
     # concatenate and shuffle positive and negative samples
@@ -28,4 +33,5 @@ def load_data_label():
 
 # test
 if __name__ == '__main__':
-    load_data_label()
+    print(len(load_data_label(train=True)[0]))
+    print(len(load_data_label(train=False)[0]))

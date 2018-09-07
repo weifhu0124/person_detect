@@ -29,11 +29,42 @@ def read_data(path, label):
         data.append((np.array(Image.open(im)), label))
     return np.array(data)
 
+# separate training and validation data
+def split_train_val(path, positive):
+    # create new directories
+    if not os.path.isdir('data/processed/train'):
+        os.mkdir('data/processed/train')
+    if not os.path.isdir('data/processed/val'):
+        os.mkdir('data/processed/val')
+    if positive == True:
+        TRAIN = 'data/processed/train/positive/'
+        VAL = 'data/processed/val/positive/'
+    else:
+        TRAIN = 'data/processed/train/negative/'
+        VAL = 'data/processed/val/negative/'
+    # create new directories
+    if not os.path.isdir(TRAIN):
+        os.mkdir(TRAIN)
+    if not os.path.isdir(VAL):
+        os.mkdir(VAL)
+    images = glob.glob(path + '*.bmp')
+    counter = 0
+    for im in images:
+        image = Image.open(im)
+        if counter < 48:
+            # put in validation set
+            image.save(VAL + os.path.basename(im))
+        else:
+            image.save(TRAIN + os.path.basename(im))
+        counter += 1
+
 # run preprocess once
 if __name__ == '__main__':
     positve_processed = 'data/processed/positive/'
     negative_processed = 'data/processed/negative/'
-    preprocess('data/bikes_and_persons', positve_processed)
-    preprocess('data/no_bike_no_person', negative_processed)
+    #preprocess('data/bikes_and_persons', positve_processed)
+    #preprocess('data/no_bike_no_person', negative_processed)
+    split_train_val(positve_processed, positive=True)
+    split_train_val(negative_processed, positive=False)
 
 

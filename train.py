@@ -20,8 +20,8 @@ def next_batch(batch_size, data, labels):
     labels_shuffle = [labels[i] for i in idx]
     return np.asarray(data_shuffle), np.asarray(labels_shuffle)
 
-print('Loading data ...')
-data, labels = util.load_data_label()
+print('Loading Training data ...')
+data, labels = util.load_data_label(train=True)
 
 # placeholder for the input images
 x_placeholder = tf.placeholder(tf.float32, [None, 48, 48, 3])
@@ -41,18 +41,13 @@ optimize = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
 print('Start training ...')
 # initiate variables
 init = tf.global_variables_initializer()
-loss_track = []
 saver = tf.train.Saver()
 with tf.Session() as sess:
     sess.run(init)
     for i in range(0, num_steps):
         data_batch, label_batch = next_batch(batch_size=batch_size, data=data, labels=labels)
         sess.run(optimize, feed_dict={x_placeholder:data_batch, y_placeholder:label_batch, keep_prob:0.8})
-        loss_v = sess.run(loss, feed_dict={x_placeholder:data_batch, y_placeholder:label_batch, keep_prob:0.8})
-        loss_track.append(loss_v)
         if i % 10 == 0:
             print('Round: ' + str(i))
     print('done')
-
-    print(loss_track)
-    saver.save(sess, '/cnn_model1.ckpt/')
+    saver.save(sess, 'model/cnn_model.ckpt')
